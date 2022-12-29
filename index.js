@@ -28,18 +28,20 @@ app.use(express.static("./public"));
 
 
 mongoose.connect(
-  MONGODB_URL,() => {
-      console.log("connected");
+  MONGODB_URL).then(() => {
+
+  console.log("connected");
 
       app.listen(5000,() => {
         console.log('app running at port 5000');
       })
 
-  }
-  
-)
+})
+.catch((err) => {
+  console.log(err); 
+})
 
-
+ 
 app.get('/',(req,res) => {
     res.sendFile(path.join("./public/index.html"),{root:'./'});
 })
