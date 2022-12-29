@@ -23,14 +23,14 @@ const urlSchema = mongoose.Schema({
 });
 
 urlSchema.statics.findByLongUrl = async function (longUrl) {
+  
   let shorturl = await this.findOne({ longUrl: longUrl });
 
   if (shorturl != null) return ROOT_URL + "/" + shorturl.shortUrl;
 
-  const protocolExists = url.parse(longUrl).protocol;
 
   shorturl = await this.create({
-    longUrl: protocolExists != null ? longUrl : "http://" + longUrl,
+    longUrl: longUrl,
     shortUrl: shortid.generate(),
   });
 
@@ -40,9 +40,16 @@ urlSchema.statics.findByLongUrl = async function (longUrl) {
 };
 
 urlSchema.statics.findByShortUrl = async function (shortUrl) {
+  
   const longurl = await this.findOne({ shortUrl: shortUrl });
 
-  if (longurl != null) return longurl.longUrl;
+  if (longurl != null){
+
+    const protocolExists = url.parse(longurl.longUrl).protocol;
+
+    return (protocolExists != null ? longurl.longUrl : 'http://' + longurl.longUrl);
+    
+  } 
 
   return ROOT_URL;
 };
