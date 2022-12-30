@@ -2,10 +2,11 @@
 
 Welcome to the URL Shortener! This app allows you to create shortened versions of long URLs.
 
-## Features
+## Usage
 
-- Enter a long URL and receive a shortened version in return
-- Redirect to the original URL when visiting a shortened URL
+- Enter a long URL in the input field and click the "Shorten" button to generate a short URL.
+- The short URL will be displayed below the input field.
+- Clicking on the short URL will redirect you to the original long URL.
 
 ## Live Link
 
